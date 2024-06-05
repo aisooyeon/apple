@@ -1,0 +1,11 @@
+^https?:\/\/www\.dpfile\.com\/picasso\/rankinglist-union\/ url reject
+^https?:\/\/img-ys011\.didistatic\.com\/static\/ad_oss\/.*.jpg url reject
+^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices\/ url reject
+^https?:\/\/img10\.360buyimg\.com\/(deliveryadmin|mcmktresadmin)\/jfs\/t1\/ url reject
+^https?:\/\/img11\.360buyimg\.com\/dl\/jfs/t1\/ url reject
+^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2436_jfs\/t1\/ url reject
+^https?:\/\/(s3plus-shon|ddplus)\.meituan\.net\/v1\/ url reject
+^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\/ url reject
+^https?:\/\/s3plus\.meituan\.net\/v1\/\w+\/(yunying-video|brandcpt-vedio)\/\w+ url reject
+
+hostname = *umetrip.com, *didistatic.com, *tujia.com, *.17usoft.com, *.17u.cn, *.360buyimg.com, *.meituan.net
