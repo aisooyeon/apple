@@ -4,8 +4,8 @@
 
 [Rewrite]
 # > 通用广告请求@ddgksf2013
-^https?:\/\/ad\.cyapi\.cn\/v\d - reject-200
-^https?:\/\/wrapper\.cyapi\.cn\/v\d\/activity - reject-200
+^https?:\/\/ad\.cyapi\.cn\/v\d - reject
+^https?:\/\/wrapper\.cyapi\.cn\/v\d\/activity - reject
 [Script]
 # > 伪装VIP解锁48小时降水[需登录][新验证接口][需旧版≤ 7.20.2]@ddgksf2013
 http-response ^https?:\/\/biz\.cyapi\.cn\/api\/v\d\/user_detail script-path=https://github.com/ddgksf2013/Scripts/raw/master/caiyun_json.js, requires-body=true, timeout=60, tag=caiyun_json
