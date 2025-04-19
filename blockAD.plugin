@@ -24,4 +24,4 @@
 ^https?:\/\/common-sc\.miguvideo\.com\/videoActivity\/activityList - reject
 
 [MITM]
-hostname = *17u.cn, *17usoft.com, *360buyimg.com, *meituan.net, *youku.com, *miguvideo.com
+hostname = *300hu.com, *17u.cn, *17usoft.com, *360buyimg.com, *meituan.net, *youku.com, *miguvideo.com
