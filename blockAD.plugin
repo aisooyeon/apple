@@ -2,6 +2,14 @@
 #!desc=blockAD
 #!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1016.png
 
+[Rule]
+DOMAIN-SUFFIX,ott.cibntv.net,REJECT
+IP-CIDR,180.95.230.14/32,REJECT
+DOMAIN,2409:8770:6cf0:1:2003::3f8:80,REJECT
+IP-CIDR6,2409:8c78:100:34:3::1b0:80,REJECT
+DOMAIN-KEYWORD,alibabausercontent.com,REJECT
+IP-CIDR,116.176.36.231/32,REJECT
+
 [Rewrite]
 #同程
 ^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices - reject
