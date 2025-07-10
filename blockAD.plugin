@@ -3,13 +3,7 @@
 #!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1016.png
 
 [Rule]
-DOMAIN-SUFFIX,ott.cibntv.net,REJECT
 DOMAIN-SUFFIX,300hu.com,REJECT
-IP-CIDR,180.95.230.14/32,REJECT
-IP-CIDR6,2409:8770:6cf0:1:2003::3f8:80,REJECT
-IP-CIDR6,2409:8c78:100:34:3::1b0:80,REJECT
-DOMAIN-KEYWORD,alibabausercontent.com,REJECT
-IP-CIDR,116.176.36.231/32,REJECT
 
 [Rewrite]
 #同程
@@ -25,8 +19,6 @@ IP-CIDR,116.176.36.231/32,REJECT
 ^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\/ - reject
 ^https?:\/\/s3plus\.meituan\.net\/v1\/\w+\/(yunying-video|brandcpt-vedio)\/\w+ - reject
 ^https?:\/\/img\.meituan\.net\/\w+\/bizad\/\w+\.(jpg|png) - reject
-#闲鱼
-^https?:\/\/iyes\.youku\.com\/uts\/v1\/start - reject
 #咪咕视频
 ^https?:\/\/\w+\.miguvideo\.com\/deliver\/site\/batchMatch\/miguvideo - reject
 ^https?:\/\/\w+\.miguvideo\.com\/request - reject
