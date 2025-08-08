@@ -34,7 +34,7 @@ DOMAIN-SUFFIX,300hu.com,REJECT
 ^https?://iface\.iqiyi\.com/api/getNewAdInfo - reject
 ^https?://act\.vip\.iqiyi\.com/interact/api/show\.do - reject
 #美丽修行
-^https?:\/\/api\.bevol\.com\/appmain\/app\/home\/launch
+^https?:\/\/api\.bevol\.com\/appmain\/app\/home\/launch - reject
 [Script]
 # 首页信息流广告
 http-response ^https?:\/\/[\d\.]+\/3f1\/cards\.iqiyi\.com\/(views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=cnftp
