@@ -1,6 +1,5 @@
 #!name=blockAD
 #!desc=blockAD
-#!icon=https://github.com/Toperlock/Quantumult/raw/main/icon/Doraemon/Doraemon-1016.png
 
 [Rule]
 DOMAIN-SUFFIX,300hu.com,REJECT
@@ -15,7 +14,7 @@ DOMAIN-SUFFIX,300hu.com,REJECT
 ^https?:\/\/img11\.360buyimg\.com\/dl\/jfs/t1 - reject
 ^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2436_jfs\/t1 - reject
 ^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2001_jfs\/t1 - reject
-^https?:\/\/api\.m\.jd\.com\/api\w+\functionId=union_exhibition_bff - reject
+^https?:\/\/api\.m\.jd\.com\/api?functionId=union_exhibition_bff - reject
 #美团
 ^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\/ - reject
 ^https?:\/\/s3plus\.meituan\.net\/v1\/\w+\/(yunying-video|brandcpt-vedio)\/\w+ - reject
