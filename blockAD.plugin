@@ -2,7 +2,6 @@
 #!desc=blockAD
 
 [Rule]
-DOMAIN-SUFFIX,300hu.com,REJECT
 
 [Rewrite]
 #同程
