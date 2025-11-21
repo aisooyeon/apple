@@ -33,8 +33,6 @@
 ^https?://intl\.iqiyi\.com/ad_external/ - reject
 ^https?://iface\.iqiyi\.com/api/getNewAdInfo - reject
 ^https?://act\.vip\.iqiyi\.com/interact/api/show\.do - reject
-#美丽修行
-^https?:\/\/api\.bevol\.com\/appmain\/app\/home\/launch - reject
 #e生活
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex - reject
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo - reject
