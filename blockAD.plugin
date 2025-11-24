@@ -2,7 +2,7 @@
 #!desc=blockAD
 
 [Rule]
-
+DOMAIN-KEYWORD,xf-yun,DIRECT
 [Rewrite]
 #同程
 ^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices - reject
