@@ -14,6 +14,7 @@
 ^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2436_jfs - reject
 ^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2001_jfs - reject
 ^https:\/\/api\.m\.jd\.com\/api\?functionId=union_exhibition_bff$ - reject
+^https?:\/\/jdread-api\.jd\.com\/jdread\/api\/channel\/module\/openscreen - reject
 ^https:\/\/api\.m\.jd\.com\/api\?functionId=jdread_api_channel_cid$ response-body-json-jq jq 'del(.data.title) | .data.modules |= map(select(.title != "我的底栏"))' file.json
 #美团
 ^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\/ - reject
