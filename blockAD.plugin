@@ -2,12 +2,15 @@
 #!desc=blockAD
 
 [Rule]
-DOMAIN-KEYWORD,xf-yun,DIRECT
+
 [Rewrite]
 #同程
 ^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices - reject
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/getappindexconfig - reject
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/openscreen - reject
+#东方财富
+^https?:\/\/[a-z]+\.eastmoney\.com\/infoService\/ - reject
+^https?:\/\/emdcadvise\.eastmoney\.com\/infoAdviseService\/ - reject
 #京东
 ^https?:\/\/img10\.360buyimg\.com\/(deliveryadmin|mcmktresadmin)\/jfs\/t1 - reject
 ^https?:\/\/img11\.360buyimg\.com\/dl\/jfs/t1 - reject
