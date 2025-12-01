@@ -39,7 +39,7 @@
 ^https?://act\.vip\.iqiyi\.com/interact/api/show\.do - reject
 #e生活
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex - reject
-^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo - response-body-json-jq jq 'del(.data[] | select(.floorId=="qdp"))' input.json > output.json
+^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo response-body-json-jq jq 'del(.data[] | select(.floorId=="qdp"))' input.json > output.json
 
 [Script]
 # 首页信息流广告
