@@ -8,6 +8,10 @@
 ^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices - reject
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/getappindexconfig - reject
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/openscreen - reject
+#途家
+^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising - reject
+#微信我的医保
+^https?:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRulePlayV2 - reject
 #东方财富
 ^https?:\/\/[a-z]+\.eastmoney\.com\/infoService\/ - reject
 ^https?:\/\/emdcadvise\.eastmoney\.com\/infoAdviseService\/ - reject
@@ -78,4 +82,4 @@ http-response ^https?:\/\/search\.video\.iqiyi\.com\/q\? script-path=https://raw
 # 开屏广告,播放广告
 http-response ^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=cnftp
 [MITM]
-hostname = *17u.cn, *17usoft.com, *360buyimg.com, *jd.com, *eastmoney.com, *meituan.net, *miguvideo.com, *iqiyi.com, elife.icbc.com.cn
+hostname = *17u.cn, *17usoft.com, *360buyimg.com, *jd.com, *eastmoney.com, client.tujia.com, card.wecity.qq.com, *meituan.net, *miguvideo.com, *iqiyi.com, elife.icbc.com.cn
