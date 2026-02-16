@@ -25,6 +25,7 @@
 ^https:\/\/api\.m\.jd\.com\/api\?functionId=jdread_api_channel_cid$ response-body-json-jq jq 'del(.data.title) | .data.modules |= map(select(.title != "我的底栏"))' file.json
 #美团
 ^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\/ - reject
+^https?:\/\/img\.meituan\.net\/wmbanner - reject
 ^https?:\/\/s3plus\.meituan\.net\/v1\/\w+\/(yunying-video|brandcpt-vedio)\/\w+ - reject
 ^https?:\/\/img\.meituan\.net\/\w+\/bizad\/\w+\.(jpg|png) - reject
 #咪咕视频
