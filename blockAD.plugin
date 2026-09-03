@@ -45,10 +45,12 @@
 #e生活
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex - reject
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo response-body-json-jq jq 'del(.data[] | select(.floorId=="qdp"))' input.json > output.json
-#12306
-^https?:\/\/mobile\.12306\.cn\/otsmobile\/app\/mgs\/ header-match "operation-type:(com\.cars\.otsmobile\.integration\.activityBanner|com\.cars\.otsmobile\.memberInfo\.getMemberQa|com\.cars\.otsmobile\.newHomePage\.initData|com\.cars\.otsmobile\.newHomePageBussData|com\.cars\.otsmobile\.paySuccBuss\.bussEntryShow)" mock-response-body="{}" status-code=200
 
 [Script]
+#12306
+^https?:\/\/mobile\.12306\.cn\/otsmobile\/app\/mgs\/ header-match "operation-type:(com\.cars\.otsmobile\.integration\.activityBanner|com\.cars\.otsmobile\.memberInfo\.getMemberQa|com\.cars\.otsmobile\.newHomePage\.initData|com\.cars\.otsmobile\.newHomePageBussData|com\.cars\.otsmobile\.paySuccBuss\.bussEntryShow)" mock-response-body="{}" status-code=200
+^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList url script-analyze-echo-response https://github.com/ddgksf2013/Scripts/raw/master/12306.js
+
 # 首页信息流广告
 http-response ^https?:\/\/[\d\.]+\/3f1\/cards\.iqiyi\.com\/(views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=cnftp
 
