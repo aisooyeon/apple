@@ -46,7 +46,7 @@
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex - reject
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo response-body-json-jq jq 'del(.data[] | select(.floorId=="qdp"))' input.json > output.json
 #12306
-^https?:\/\/ad\.12306\.cn\/ad\/ser response-body-json-jq jq 'if .placementNo == "0007" then {materialsList: [{billMaterialsId: "6491", filePath: "", creativeType: 1}], advertParam: {skipTime: 1}, code: "00"} elif .placementNo == "G0054" then {code: "00", materialsList: [{}]} else {code: "00", message: "无广告返回"} end' input.json
+^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList response-body-json-jq '{code: "00", message: "无广告返回", materialsList: []}'
 
 [Script]
 # 首页信息流广告
