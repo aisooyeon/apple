@@ -47,9 +47,8 @@
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo response-body-json-jq jq 'del(.data[] | select(.floorId=="qdp"))' input.json > output.json
 
 [Script]
-[Script]
 # 拦截途家首页/搜索接口 response_body 并移除广告字段
-http-response ^https?:\/\/.*\.tujia\.com\/.*script-path=https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/tujia_remove_ads.js, requires-body=true, tag=途家去广告
+http-response ^https?:\/\/(pwa|m|api|gateway|app)\.tujia\.com\/.*(home|index|homepage|main|portal|appw).* script-path=https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/tujia_remove_ads.js, requires-body=true, tag=途家去广告
 
 # 首页信息流广告
 http-response ^https?:\/\/[\d\.]+\/3f1\/cards\.iqiyi\.com\/(views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=cnftp
