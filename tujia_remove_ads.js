@@ -1,43 +1,68 @@
-// tujia_remove_ads.js
-let body = $response.body;
+/**
+ * 途家首页去广告
+ * 清理：顶部 Banner、预售 Banner、悬浮球、搜索按钮广告
+ * 保留：筛选器、热搜、Tab、必住指南等正常功能
+ */
 
-if (body) {
-  try {
-    let obj = JSON.parse(body);
+const url = $request.url;
+if (!$response.body) {
+  $done({});
+}
 
-    if (obj?.content) {
-      // 1. 清空顶部轮播广告，保留空数组维持数据类型
-      if (Array.isArray(obj.content.topBannerVO)) {
-        obj.content.topBannerVO = [];
+try {
+  let body = JSON.parse($response.body);
+
+  // 只处理带 content 的首页响应
+  if (body && body.content && typeof body.content === "object") {
+    const content = body.content;
+
+    // 1. 清除顶部大 Banner 广告
+    if (Array.isArray(content.topBannerVO)) {
+      content.topBannerVO = [];
+    }
+
+    // 2. 清除预售/活动 Banner
+    if (content.cTripPresellBanners && typeof content.cTripPresellBanners === "object") {
+      if (Array.isArray(content.cTripPresellBanners.banners)) {
+        content.cTripPresellBanners.banners = [];
       }
+      // 可选：彻底去掉整个模块（更干净）
+      // content.cTripPresellBanners = null;
+    }
 
-      // 2. 预售 Banner：只清空广告列表，保留模块结构
-      if (obj.content.cTripPresellBanners) {
-        obj.content.cTripPresellBanners.banners = [];
-      }
-
-      // 3. 搜索按钮广告：将广告类型重置为 0/null，清空营销文案
-      if (obj.content.searchButtonAdvertising) {
-        obj.content.searchButtonAdvertising.advertisingType = 0;
-        obj.content.searchButtonAdvertising.bannerModule = null;
-        obj.content.searchButtonAdvertising.popupModule = null;
-      }
-
-      // 4. 首页悬浮球广告：清空 banner 数组，保留底层框架
-      if (obj.content.otherConfig?.floatingBall?.bannerModule) {
-        obj.content.otherConfig.floatingBall.bannerModule.banners = [];
-      }
-
-      // 5. 搜索按钮浮层文案（如“积分抵210元”）：置为空字符串
-      if (obj.content.extend?.searchButtonInfo) {
-        obj.content.extend.searchButtonInfo.searchButtonText = "";
+    // 3. 清除悬浮球广告（核心）
+    if (content.otherConfig && typeof content.otherConfig === "object") {
+      if (content.otherConfig.floatingBall) {
+        content.otherConfig.floatingBall = null;
+        // 或者更温和：只清空 banner
+        // if (content.otherConfig.floatingBall.bannerModule) {
+        //   content.otherConfig.floatingBall.bannerModule.banners = [];
+        // }
       }
     }
 
-    body = JSON.stringify(obj);
-  } catch (e) {
-    console.log("途家精细化去广告脚本异常: " + e);
-  }
-}
+    // 4. 清除搜索按钮广告
+    if (content.searchButtonAdvertising) {
+      content.searchButtonAdvertising = {
+        code: "",
+        advertisingType: 0,
+        popupModule: null,
+        text: null,
+        title: null,
+        bannerModule: null
+      };
+    }
 
-$done({ body });
+    // 5. 清空其他可能的广告位（安全处理）
+    if (Array.isArray(content.middleBannerV2)) content.middleBannerV2 = [];
+    if (Array.isArray(content.middleBannerV3)) content.middleBannerV3 = [];
+    if (Array.isArray(content.middleKingKongsV2)) content.middleKingKongsV2 = [];
+    if (Array.isArray(content.searchBannerVO)) content.searchBannerVO = [];
+  }
+
+  $done({ body: JSON.stringify(body) });
+} catch (e) {
+  // 解析失败则原样返回，避免影响正常使用
+  console.log("途家去广告脚本异常: " + e);
+  $done({});
+}
