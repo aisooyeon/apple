@@ -1,37 +1,42 @@
-// 获取并解析接口返回的 JSON 数据
+// tujia_remove_ads.js
 let body = $response.body;
 
 if (body) {
   try {
     let obj = JSON.parse(body);
 
-    if (obj && obj.content) {
-      // 1. 清空顶部/中间轮播 Banner 广告
-      if (obj.content.topBannerVO) {
+    if (obj?.content) {
+      // 1. 清空顶部轮播广告，保留空数组维持数据类型
+      if (Array.isArray(obj.content.topBannerVO)) {
         obj.content.topBannerVO = [];
       }
+
+      // 2. 预售 Banner：只清空广告列表，保留模块结构
       if (obj.content.cTripPresellBanners) {
-        delete obj.content.cTripPresellBanners;
+        obj.content.cTripPresellBanners.banners = [];
       }
 
-      // 2. 清空搜索按钮广告与悬浮球广告
+      // 3. 搜索按钮广告：将广告类型重置为 0/null，清空营销文案
       if (obj.content.searchButtonAdvertising) {
-        obj.content.searchButtonAdvertising = {};
-      }
-      if (obj.content.otherConfig && obj.content.otherConfig.floatingBall) {
-        delete obj.content.otherConfig.floatingBall;
+        obj.content.searchButtonAdvertising.advertisingType = 0;
+        obj.content.searchButtonAdvertising.bannerModule = null;
+        obj.content.searchButtonAdvertising.popupModule = null;
       }
 
-      // 3. 移除营销/膨胀券相关扩展字段
-      if (obj.content.extend && obj.content.extend.searchButtonInfo) {
-        delete obj.content.extend.searchButtonInfo;
+      // 4. 首页悬浮球广告：清空 banner 数组，保留底层框架
+      if (obj.content.otherConfig?.floatingBall?.bannerModule) {
+        obj.content.otherConfig.floatingBall.bannerModule.banners = [];
+      }
+
+      // 5. 搜索按钮浮层文案（如“积分抵210元”）：置为空字符串
+      if (obj.content.extend?.searchButtonInfo) {
+        obj.content.extend.searchButtonInfo.searchButtonText = "";
       }
     }
 
-    // 重新序列化为字符串返回
     body = JSON.stringify(obj);
   } catch (e) {
-    console.log("途家去广告脚本执行异常: " + e);
+    console.log("途家精细化去广告脚本异常: " + e);
   }
 }
 
