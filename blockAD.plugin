@@ -11,7 +11,7 @@
 #途家
 ^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising - reject
 #微信我的医保
-#^https?:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRulePlayV2 - reject
+response if ${url} ~= /^https:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRulePlayV2(?:\?.*)?$/ then response.json.jq(".advs = []")
 #东方财富
 ^https?:\/\/[a-z]+\.eastmoney\.com\/infoService\/ - reject
 ^https?:\/\/emdcadvise\.eastmoney\.com\/infoAdviseService\/ - reject
