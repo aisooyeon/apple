@@ -11,7 +11,7 @@
 #途家
 ^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising - reject
 #微信我的医保
-^https?:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRulePlayV2 - reject
+#^https?:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRulePlayV2 - reject
 #东方财富
 ^https?:\/\/[a-z]+\.eastmoney\.com\/infoService\/ - reject
 ^https?:\/\/emdcadvise\.eastmoney\.com\/infoAdviseService\/ - reject
@@ -22,16 +22,12 @@
 ^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2001_jfs - reject
 ^https:\/\/api\.m\.jd\.com\/api\?functionId=union_exhibition_bff$ - reject
 ^https?:\/\/jdread-api\.jd\.com\/jdread\/api\/channel\/module\/openscreen - reject
-^https:\/\/api\.m\.jd\.com\/api\?functionId=jdread_api_channel_cid$ response-body-json-jq jq 'del(.data.title) | .data.modules |= map(select(.title != "我的底栏"))' file.json
+esponse if ${url} ~= /^https:\/\/api\.m\.jd\.com\/api\?(?:[^#]*&)?functionId=jdread_api_channel_cid(?:&|$)/ then response.json.jq("del(.data.title) | .data.modules |= map(select(.title != \"我的底栏\"))")
 #美团
 ^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\/ - reject
 ^https?:\/\/img\.meituan\.net\/wmbanner - reject
 ^https?:\/\/s3plus\.meituan\.net\/v1\/\w+\/(yunying-video|brandcpt-vedio)\/\w+ - reject
 ^https?:\/\/img\.meituan\.net\/\w+\/bizad\/\w+\.(jpg|png) - reject
-#咪咕视频
-^https?:\/\/\w+\.miguvideo\.com\/deliver\/site\/batchMatch\/miguvideo - reject
-^https?:\/\/\w+\.miguvideo\.com\/request - reject
-^https?:\/\/common-sc\.miguvideo\.com\/videoActivity\/activityList - reject
 #爱奇艺
 ^https?:\/\/iface2\.iqiyi\.com\/video\/3\.0\/v_interface_proxy\? - reject
 ^https?:\/\/iface2\.iqiyi\.com\/ivos\/interact\/video\/data\? - reject
