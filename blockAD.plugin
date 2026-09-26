@@ -44,8 +44,7 @@
 ^https?://act\.vip\.iqiyi\.com/interact/api/show\.do - reject
 #e生活
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex - reject
-^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo response-body-json-jq jq 'del(.data[] | select(.floorId=="qdp"))' input.json > output.json
-^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo\/getStartupMantleFlatingFloor\.do(?:\?.*)?$ response-jq '(.data[]? | select(.floorId == "qdp") | .startupDto) = [] | (.data[]? | select(.floorId == "JX001") | .activities) = []'
+response if ${url} ~= /^https:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo\/getStartupMantleFlatingFloor\.do(?:\?.*)?$/ then response.json.jq("(.data[]? | select(.floorId == \"qdp\") | .startupDto) = [] | (.data[]? | select(.floorId == \"JX001\") | .activities) = []")
 [Script]
 # 途家首页去广告
 http-response ^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb script-path=https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/tujia_remove_ads.js, requires-body=true, timeout=60, tag=途家首页去广告
