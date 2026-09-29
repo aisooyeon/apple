@@ -8,6 +8,11 @@
 ^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices - reject
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/getappindexconfig - reject
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/openscreen - reject
+#高德地图
+^https?:\/\/m5\.amap\.com\/ws\/shield\/dsp\/app\/startup\/init\? reject-dict
+^https?:\/\/m5\.amap\.com\/ws\/valueadded\/ reject
+^https?:\/\/optimus-ads\.amap\.com\/uploadimg\/[a-zA-Z0-9]+.gif reject-200
+^https?:\/\/amap-aos-info-nogw\.amap\.com\/ws\/aos\/alimama\/splash_screen_rt reject
 #爱奇艺
 # 播放页开通会员提示
 ^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show\? reject-dict
