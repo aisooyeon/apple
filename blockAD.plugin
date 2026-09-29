@@ -37,9 +37,8 @@ response if ${request.method} == "POST" && ${url} ~= /^https:\/\/api\.m\.jd\.com
 ^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex - reject
 response if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo\/getStartupMantleFlatingFloor\.do(?:\?.*)?$/ then response.json.jq("(.data[]? | select(.floorId == \"qdp\") | .startupDto) = [] | (.data[]? | select(.floorId == \"JX001\") | .activities) = []")
 [Script]
-#航旅纵横
-#http-response ^https?:\/\/(?:114\.115\.217\.129|home\.umetrip\.com)\/gateway\/api\/umetrip\/native$ script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/umetrip/umetrip_ads.js, requires-body=true, timeout=60, tag=航旅纵横
-# 途家
+
+#途家
 http-response ^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb script-path=https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/tujia_remove_ads.js, requires-body=true, timeout=60, tag=途家
 [MITM]
 hostname = *17u.cn, *17usoft.com, *umetrip.com, *360buyimg.com, *jd.com, *eastmoney.com, *tujia.com, card.wecity.qq.com, *meituan.net, *iqiyi.com, elife.icbc.com.cn
