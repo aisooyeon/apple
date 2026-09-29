@@ -9,8 +9,8 @@
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/getappindexconfig - reject
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/openscreen - reject
 #航旅纵横
-^https:\/\/oss\.umetrip\.com\/fs\/advert\/polite reject
-^http?:\/\/(discardrp|startup)\.umetrip\.com\/gateway\/api\/umetrip\/native reject
+^https?:\/\/oss\.umetrip\.com\/fs\/advert\/polite reject
+^https?:\/\/(discardrp|startup)\.umetrip\.com\/gateway\/api\/umetrip\/native reject
 #途家
 ^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising - reject
 #微信我的医保
