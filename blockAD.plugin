@@ -101,4 +101,4 @@ http-response ^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\? script-path=http
 #途家
 http-response ^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb script-path=https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/tujia_remove_ads.js, requires-body=true, timeout=60, tag=途家
 [MITM]
-hostname = *17u.cn, *17usoft.com, *umetrip.com, *360buyimg.com, *jd.com, *eastmoney.com, *tujia.com, card.wecity.qq.com, *meituan.net, *iqiyi.com, elife.icbc.com.cn103.37.155.60, *.dianping.com, www.dpfile.com
+hostname = *17u.cn, *17usoft.com, *umetrip.com, *360buyimg.com, *jd.com, *eastmoney.com, *tujia.com, card.wecity.qq.com, *meituan.net, *iqiyi.com, elife.icbc.com.cn, 103.37.155.60, *.dianping.com, www.dpfile.com, *amap.com
