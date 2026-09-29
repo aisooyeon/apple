@@ -8,7 +8,15 @@
 ^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices - reject
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/getappindexconfig - reject
 ^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/openscreen - reject
-
+#爱奇艺
+# 播放页开通会员提示
+^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show\? reject
+# 播放页多余动效
+^https?:\/\/iface2\.iqiyi\.com\/ivos\/interact\/video\/data\? reject
+# 播放页升级白金会员按钮
+^https?:\/\/iface2\.iqiyi\.com\/video\/3\.0\/v_interface_proxy\? reject
+# 青少年弹窗
+^https?:\/\/iface2\.iqiyi\.com\/views_pop\/3\.0\/pop_control\? reject
 #航旅纵横
 ^https?:\/\/oss\.umetrip\.com\/fs\/advert\/polite reject
 ^https?:\/\/(discardrp|startup)\.umetrip\.com\/gateway\/api\/umetrip\/native reject
