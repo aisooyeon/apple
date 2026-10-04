@@ -4,6 +4,25 @@
 [Rule]
 
 [Rewrite]
+#大众点评
+request if ${url} ~= /^https?:\/\/103\.37\.155\.60\/fetch/i then reject(404)
+request if ${url} ~= /^https?:\/\/catdot\.dianping\.com\/broker-service\/hijack/i then reject(404)
+request if ${url} ~= /^https?:\/\/mapi\.dianping\.com\/mapi\/operating\/(?>indexopsmodules|loadsplashconfig)/i then reject(404)
+request if ${url} ~= /^https?:\/\/mapi\.dianping\.com\/mapi\/intelliindex/i then reject_dict(200)
+request if ${url} ~= /^https?:\/\/mapi\.dianping\.com\/wdrpreload\/userprediction/i then reject(404)
+request if ${url} ~= /^https?:\/\/mapi\.dianping\.com\/adshopping/i then reject(404)
+request if ${url} ~= /^https?:\/\/img\.meituan\.net\/goodsawardpic\/\w+\.gif/i then reject_img(200)
+request if ${url} ~= /^https?:\/\/p\.meituan\.com\/api\/privacy\/config/i then reject(404)
+request if ${url} ~= /^https?:\/\/rms\.meituan\.com\/api\/v\d\/rmsmina\/c\/queryWechatAdvertisement/i then reject_dict(200)
+request if ${url} ~= /^https?:\/\/www\.dpfile\.com\/app\/fecommonservice-lottie\/ugc-write-done\/media/i then reject(404)
+request if ${url} ~= /^https?:\/\/www\.dpfile\.com\/picasso\/picasso-qa\/src\/AnswerList\/AnswerList-bundle/i then reject(404)
+request if ${url} ~= /^https?:\/\/www\.dpfile\.com\/sc\/indexpromotion/i then reject(404)
+request if ${url} ~= /^https?:\/\/catfront\.dianping\.com\/api\/metric\?v=\d&p=rn_gcbu_mrn-joy-poidetail/i then reject(404)
+request if ${url} ~= /^https?:\/\/awp-assets\.meituan\.net\/hfe\/fep\/\w+\.json/i then reject(404)
+request if ${url} ~= /^https?:\/\/s3plus\.meituan\.net\/ocean-blk-index\/index\/blk_conf/i then reject(404)
+request if ${url} ~= /^https?:\/\/p\d\.meituan\.net\/nrpresourcevenus\/\w+\.gif/i then reject_img(200)
+request if ${url} ~= /^https?:\/\/p\d\.meituan\.net\/travelcube\/(?!c129a661)\w+\.gif/i then reject_img(200)
+request if ${url} ~= /^https?:\/\/ddplus\.meituan\.net\/v\d\/mss_\w+\/(?>ehc|titansx|ddblue|edfu)\//i then reject(404)
 #同程
 request if ${url} ~= /^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices/i then reject(404)
 request if ${url} ~= /^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/getappindexconfig/i then reject(404)
@@ -51,6 +70,9 @@ request if ${url} ~= /^https?:\/\/img\.meituan\.net\/\w+\/bizad\/\w+\.(jpg|png)/
 request if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex/i then reject(404)
 response if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo\/getStartupMantleFlatingFloor\.do(?:\?.*)?$/ then response.json.jq("(.data[]? | select(.floorId == \"qdp\") | .startupDto) = [] | (.data[]? | select(.floorId == \"JX001\") | .activities) = []")
 [Script]
+#大众点评
+response if ${url} ~= /^https?:\/\/img\.meituan\.net\/(?>dpmobile|goodsawardpic)\//i then script("https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js") with enable=${davsdmpk_enable}, tag="大众点评", timeout=60, requires_body=true
+response if ${url} ~= /^https?:\/\/ddplus\.meituan\.net\/v\d\/mss_\w+\/picassovc/i then script("https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js") with enable=${davsdmpk_enable}, tag="大众点评", timeout=60, requires_body=true
 #途家
 response if ${url} ~= /^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb/i then script("https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/tujia_remove_ads.js") with tag="途家", timeout=60, requires_body=true
 #美丽修行
@@ -80,5 +102,5 @@ response if ${url} ~= /^https?:\/\/search\.video\.iqiyi\.com\/q\?/i then script(
 response if ${url} ~= /^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺开屏广告", timeout=60, requires_body=true
 
 [MITM]
-hostname = *17u.cn, *17usoft.com, *umetrip.com, *360buyimg.com, *jd.com, *eastmoney.com, *tujia.com, card.wecity.qq.com, *meituan.net, *iqiyi.com, elife.icbc.com.cn, *amap.com
+hostname = *17u.cn, *17usoft.com, *umetrip.com, *360buyimg.com, *jd.com, *eastmoney.com, *tujia.com, card.wecity.qq.com, 103.37.155.60, *.dianping.com, *meituan.net, *iqiyi.com, elife.icbc.com.cn, *amap.com
 
