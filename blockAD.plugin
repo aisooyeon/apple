@@ -5,78 +5,80 @@
 
 [Rewrite]
 #同程
-^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices - reject
-^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/getappindexconfig - reject
-^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/openscreen - reject
+request if ${url} ~= /^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices/i then reject(404)
+request if ${url} ~= /^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/getappindexconfig/i then reject(404)
+request if ${url} ~= /^https?:\/\/tcmobileapi\.17usoft\.com\/appindexnew\/index\/openscreen/i then reject(404)
 #高德地图
-^https?:\/\/m5\.amap\.com\/ws\/shield\/dsp\/app\/startup\/init\? reject-dict
-^https?:\/\/m5\.amap\.com\/ws\/valueadded\/ reject
-^https?:\/\/optimus-ads\.amap\.com\/uploadimg\/[a-zA-Z0-9]+.gif reject-200
-^https?:\/\/amap-aos-info-nogw\.amap\.com\/ws\/aos\/alimama\/splash_screen_rt reject
+request if ${url} ~= /^https?:\/\/m5\.amap\.com\/ws\/shield\/dsp\/app\/startup\/init\?/i then reject_dict(200)
+request if ${url} ~= /^https?:\/\/m5\.amap\.com\/ws\/valueadded\//i then reject(404)
+request if ${url} ~= /^https?:\/\/optimus-ads\.amap\.com\/uploadimg\/[a-zA-Z0-9]+.gif/i then reject(200)
+request if ${url} ~= /^https?:\/\/amap-aos-info-nogw\.amap\.com\/ws\/aos\/alimama\/splash_screen_rt/i then reject(404)
 #爱奇艺
 # 播放页开通会员提示
-^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show\? reject-dict
+request if ${url} ~= /^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v2\/show\?/i then reject_dict(200)
 # 播放页多余动效
-^https?:\/\/iface2\.iqiyi\.com\/ivos\/interact\/video\/data\? reject-dict
+request if ${url} ~= /^https?:\/\/iface2\.iqiyi\.com\/ivos\/interact\/video\/data\?/i then reject_dict(200)
 # 播放页升级白金会员按钮
-^https?:\/\/iface2\.iqiyi\.com\/video\/3\.0\/v_interface_proxy\? reject-dict
+request if ${url} ~= /^https?:\/\/iface2\.iqiyi\.com\/video\/3\.0\/v_interface_proxy\?/i then reject_dict(200)
 # 青少年弹窗
-^https?:\/\/iface2\.iqiyi\.com\/views_pop\/3\.0\/pop_control\? reject-dict
+request if ${url} ~= /^https?:\/\/iface2\.iqiyi\.com\/views_pop\/3\.0\/pop_control\?/i then reject_dict(200)
 #航旅纵横
-^https?:\/\/oss\.umetrip\.com\/fs\/advert\/polite reject
-^https?:\/\/(discardrp|startup)\.umetrip\.com\/gateway\/api\/umetrip\/native reject
+request if ${url} ~= /^https?:\/\/oss\.umetrip\.com\/fs\/advert\/polite/i then reject(404)
+request if ${url} ~= /^https?:\/\/(discardrp|startup)\.umetrip\.com\/gateway\/api\/umetrip\/native/i then reject(404)
 request if ${url} ~= /^https?:\/\/(?:114\.115\.217\.129|home\.umetrip\.com)\/gateway\/api\/umetrip\/native$/ && ${request.header['rpid']} ~= /1000002|1000019/ then reject(404)
 #途家
-^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising - reject
+request if ${url} ~= /^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising/i then reject(404)
 #微信我的医保
 response if ${url} ~= /^https?:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRulePlayV2(?:\?.*)?$/ then response.json.jq(".advs = []")
 #东方财富
-^https?:\/\/[a-z]+\.eastmoney\.com\/infoService\/ - reject
-^https?:\/\/emdcadvise\.eastmoney\.com\/infoAdviseService\/ - reject
+request if ${url} ~= /^https?:\/\/[a-z]+\.eastmoney\.com\/infoService\//i then reject(404)
+request if ${url} ~= /^https?:\/\/emdcadvise\.eastmoney\.com\/infoAdviseService\//i then reject(404)
 #京东
-^https?:\/\/img10\.360buyimg\.com\/(deliveryadmin|mcmktresadmin)\/jfs\/t1 - reject
-^https?:\/\/img11\.360buyimg\.com\/dl\/jfs/t1 - reject
-^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2436_jfs - reject
-^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2001_jfs - reject
-^https?:\/\/api\.m\.jd\.com\/api\?functionId=union_exhibition_bff$ - reject
+request if ${url} ~= /^https?:\/\/img10\.360buyimg\.com\/(deliveryadmin|mcmktresadmin)\/jfs\/t1/i then reject(404)
+request if ${url} ~= /^https?:\/\/img11\.360buyimg\.com\/dl\/jfs\/t1/i then reject(404)
+request if ${url} ~= /^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2436_jfs/i then reject(404)
+request if ${url} ~= /^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2001_jfs/i then reject(404)
+request if ${url} ~= /^https?:\/\/api\.m\.jd\.com\/api\?functionId=union_exhibition_bff$/i then reject(404)
 response if ${url} ~= /^https:\/\/jdread-api\.jd\.com\/jdread\/api\/user\/ad(?:\?.*)?$/ then response.json.jq(".data.show_ad = false | .data.show_ad_tm = 0")
 response if ${url} ~= /^https:\/\/jdread-api\.jd\.com\/jdread\/api\/popup(?:\?|$)/ then response.json.jq(".data.popup_windows = [] | .data.startup_prompts = []")
 response if ${request.method} == "POST" && ${url} ~= /^https:\/\/api\.m\.jd\.com\/api\?functionId=jdread_api_channel_cid(?:&|$)/ && ${response.status} == 200 then response.json.jq(".data.modules |= (if type == \"array\" then map(select(.title != \"我的底栏\")) else . end)")
 #美团
-^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\/ - reject
-^https?:\/\/img\.meituan\.net\/wmbanner - reject
-^https?:\/\/s3plus\.meituan\.net\/v1\/\w+\/(yunying-video|brandcpt-vedio)\/\w+ - reject
-^https?:\/\/img\.meituan\.net\/\w+\/bizad\/\w+\.(jpg|png) - reject
+request if ${url} ~= /^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\//i then reject(404)
+request if ${url} ~= /^https?:\/\/img\.meituan\.net\/wmbanner/i then reject(404)
+request if ${url} ~= /^https?:\/\/s3plus\.meituan\.net\/v1\/\w+\/(yunying-video|brandcpt-vedio)\/\w+/i then reject(404)
+request if ${url} ~= /^https?:\/\/img\.meituan\.net\/\w+\/bizad\/\w+\.(jpg|png)/i then reject(404)
 #e生活
-^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex - reject
+request if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex/i then reject(404)
 response if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo\/getStartupMantleFlatingFloor\.do(?:\?.*)?$/ then response.json.jq("(.data[]? | select(.floorId == \"qdp\") | .startupDto) = [] | (.data[]? | select(.floorId == \"JX001\") | .activities) = []")
 [Script]
-#美丽修行
-http-response ^https:\/\/api\.bevol\.com\/(?:appmain\/app\/home\/page|usercenter\/account\/info|personal\/page|appmain\/app\/home\/launch|trialbox\/shop\/app\/homePage)$ script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/mlxx/mlxx.js, requires-body=true, timeout=60, tag=美丽修行
-#爱奇艺
-http-response ^https?:\/\/[\d\.]+\/3f1\/cards\.iqiyi\.com\/(views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺首页信息流广告, enable={aiqiyi_enable}
-http-response ^https?:\/\/access\.if\.iqiyi\.com\/3f1\/cards\.iqiyi\.com\/(views_category\/3\.0\/category_home|views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺首页信息流广告, enable={aiqiyi_enable}
-http-response ^https?:\/\/cards\.iqiyi\.com\/views_category\/3\.0\/(category_home|categorylib_content|film_hybrid)\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺首页信息流广告, enable={aiqiyi_enable}
-http-response ^https?:\/\/cards\.iqiyi\.com\/(views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺首页信息流广告, enable={aiqiyi_enable}
-# 播放详情页
-http-response ^https?:\/\/cards\.iqiyi\.com\/views_plt\/3\.0\/player_tabs_v2\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺播放详情页广告, enable={aiqiyi_enable}
-# 搜索页列表
-http-response ^https?:\/\/cards\.iqiyi\.com\/views_search\/3\.0\/(hot_query_)?search\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺搜索页列表广告, enable={aiqiyi_enable}
-# 评论区
-http-response ^https?:\/\/comment-card\.iqiyi\.com\/views_comment\/3\.0\/long_video_comments\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺评论区, enable={aiqiyi_enable}
-# 我的页面菜单
-http-response ^https?:\/\/iface2\.iqiyi\.com\/aggregate\/3\.0\/getMyMenus\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺我的页面菜单, enable={aiqiyi_enable}
-# 首页左上角天气
-http-response ^https?:\/\/iface2\.iqiyi\.com\/control\/3\.0\/init_proxy\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺首页左上角天气, enable={aiqiyi_enable}
-# 通用控制,各tab页二楼
-http-response ^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺通用控制,各tab页二楼, enable={aiqiyi_enable}
-# 底部tab、顶部tab
-http-response ^https?:\/\/iface2\.iqiyi\.com\/views\/3\.0\/(bottom_theme|home_top_menu)\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺底部tab、顶部tab, enable={aiqiyi_enable}
-# 搜索框填充词
-http-response ^https?:\/\/search\.video\.iqiyi\.com\/q\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺搜索框填充词, enable={aiqiyi_enable}
-# 开屏广告,播放广告
-http-response ^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\? script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js, requires-body=true, timeout=60, tag=爱奇艺开屏广告,播放广告, enable={aiqiyi_enable}
 #途家
-http-response ^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb script-path=https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/tujia_remove_ads.js, requires-body=true, timeout=60, tag=途家
+response if ${url} ~= /^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb/i then script("https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/tujia_remove_ads.js") with tag="途家", timeout=60, requires_body=true
+#美丽修行
+response if ${url} ~= /^https:\/\/api\.bevol\.com\/(?:appmain\/app\/home\/page|usercenter\/account\/info|personal\/page|appmain\/app\/home\/launch|trialbox\/shop\/app\/homePage)$/i then script("https://github.com/fmz200/wool_scripts/raw/main/Scripts/mlxx/mlxx.js") with tag="美丽修行", timeout=60, requires_body=true
+#爱奇艺
+response if ${url} ~= /^https?:\/\/[\d\.]+\/3f1\/cards\.iqiyi\.com\/(views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺首页信息流广告", timeout=60, requires_body=true
+response if ${url} ~= /^https?:\/\/access\.if\.iqiyi\.com\/3f1\/cards\.iqiyi\.com\/(views_category\/3\.0\/category_home|views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺首页信息流广告", timeout=60, requires_body=true
+response if ${url} ~= /^https?:\/\/cards\.iqiyi\.com\/views_category\/3\.0\/(category_home|categorylib_content|film_hybrid)\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺首页信息流广告", timeout=60, requires_body=true
+response if ${url} ~= /^https?:\/\/cards\.iqiyi\.com\/(views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺首页信息流广告", timeout=60, requires_body=true
+# 播放详情页
+response if ${url} ~= /^https?:\/\/cards\.iqiyi\.com\/views_plt\/3\.0\/player_tabs_v2\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺播放详情页广告", timeout=60, requires_body=true
+# 搜索页列表
+response if ${url} ~= /^https?:\/\/cards\.iqiyi\.com\/views_search\/3\.0\/(hot_query_)?search\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺搜索页列表广告", timeout=60, requires_body=true
+# 评论区
+response if ${url} ~= /^https?:\/\/comment-card\.iqiyi\.com\/views_comment\/3\.0\/long_video_comments\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺评论区", timeout=60, requires_body=true
+# 我的页面菜单
+response if ${url} ~= /^https?:\/\/iface2\.iqiyi\.com\/aggregate\/3\.0\/getMyMenus\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺我的页面菜单", timeout=60, requires_body=true
+# 首页左上角天气
+response if ${url} ~= /^https?:\/\/iface2\.iqiyi\.com\/control\/3\.0\/init_proxy\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺首页左上角天气", timeout=60, requires_body=true
+# 通用控制,各tab页二楼
+response if ${url} ~= /^https?:\/\/iface2\.iqiyi\.com\/fusion\/3\.0\/common_switch\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺通用控制", timeout=60, requires_body=true
+# 底部tab、顶部tab
+response if ${url} ~= /^https?:\/\/iface2\.iqiyi\.com\/views\/3\.0\/(bottom_theme|home_top_menu)\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺底部tab、顶部tab", timeout=60, requires_body=true
+# 搜索框填充词
+response if ${url} ~= /^https?:\/\/search\.video\.iqiyi\.com\/q\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺搜索框填充词", timeout=60, requires_body=true
+# 开屏广告,播放广告
+response if ${url} ~= /^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺开屏广告", timeout=60, requires_body=true
+
 [MITM]
 hostname = *17u.cn, *17usoft.com, *umetrip.com, *360buyimg.com, *jd.com, *eastmoney.com, *tujia.com, card.wecity.qq.com, *meituan.net, *iqiyi.com, elife.icbc.com.cn, *amap.com
+
