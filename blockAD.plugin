@@ -46,9 +46,8 @@ request if ${url} ~= /^https?:\/\/oss\.umetrip\.com\/fs\/advert\/polite/i then r
 request if ${url} ~= /^https?:\/\/(discardrp|startup)\.umetrip\.com\/gateway\/api\/umetrip\/native/i then reject(404)
 request if ${url} ~= /^https?:\/\/(?:114\.115\.217\.129|home\.umetrip\.com)\/gateway\/api\/umetrip\/native$/ && ${request.header['rpid']} ~= /1000002|1000019/ then reject(404)
 #途家
-#途家
-response if ${url} ~= /^https:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising(?:\?.*)?$/ then response.json.jq(".content.startPictureAdvertising.bannerModule.banners = []")
-response if ${url} ~= /^https:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb\/v2\/?(?:\?.*)?$/ && ${response.status} == 200 then response.json.jq(".content.topBannerVO = [] | .content.otherConfig.floatingBall.bannerModule.banners = []")
+response if ${url} ~= /^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising(?:\?.*)?$/ then response.json.jq(".content.startPictureAdvertising.bannerModule.banners = []")
+response if ${url} ~= /^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb\/v2\/?(?:\?.*)?$/ && ${response.status} == 200 then response.json.jq(".content.topBannerVO = [] | .content.otherConfig.floatingBall.bannerModule.banners = []")
 #微信我的医保
 response if ${url} ~= /^https?:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRulePlayV2(?:\?.*)?$/ then response.json.jq(".advs = []")
 #东方财富
@@ -60,8 +59,8 @@ request if ${url} ~= /^https?:\/\/img11\.360buyimg\.com\/dl\/jfs\/t1/i then reje
 request if ${url} ~= /^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2436_jfs/i then reject(404)
 request if ${url} ~= /^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2001_jfs/i then reject(404)
 request if ${url} ~= /^https?:\/\/api\.m\.jd\.com\/api\?functionId=union_exhibition_bff$/i then reject(404)
-response if ${url} ~= /^https:\/\/jdread-api\.jd\.com\/jdread\/api\/user\/ad(?:\?.*)?$/ then response.json.jq(".data.show_ad = false | .data.show_ad_tm = 0")
-response if ${url} ~= /^https:\/\/jdread-api\.jd\.com\/jdread\/api\/popup(?:\?|$)/ then response.json.jq(".data.popup_windows = [] | .data.startup_prompts = []")
+response if ${url} ~= /^https?:\/\/jdread-api\.jd\.com\/jdread\/api\/user\/ad(?:\?.*)?$/ then response.json.jq(".data.show_ad = false | .data.show_ad_tm = 0")
+response if ${url} ~= /^https?:\/\/jdread-api\.jd\.com\/jdread\/api\/popup(?:\?|$)/ then response.json.jq(".data.popup_windows = [] | .data.startup_prompts = []")
 response if ${request.method} == "POST" && ${url} ~= /^https:\/\/api\.m\.jd\.com\/api\?functionId=jdread_api_channel_cid(?:&|$)/ && ${response.status} == 200 then response.json.jq(".data.modules |= (if type == \"array\" then map(select(.title != \"我的底栏\")) else . end)")
 #美团
 request if ${url} ~= /^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\//i then reject(404)
@@ -76,7 +75,7 @@ response if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo\
 response if ${url} ~= /^https?:\/\/img\.meituan\.net\/(?>dpmobile|goodsawardpic)\//i then script("https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js") with enable=${davsdmpk_enable}, tag="大众点评", timeout=60, requires_body=true
 response if ${url} ~= /^https?:\/\/ddplus\.meituan\.net\/v\d\/mss_\w+\/picassovc/i then script("https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js") with enable=${davsdmpk_enable}, tag="大众点评", timeout=60, requires_body=true
 #美丽修行
-response if ${url} ~= /^https:\/\/api\.bevol\.com\/(?:appmain\/app\/home\/page|usercenter\/account\/info|personal\/page|appmain\/app\/home\/launch|trialbox\/shop\/app\/homePage)$/i then script("https://github.com/fmz200/wool_scripts/raw/main/Scripts/mlxx/mlxx.js") with tag="美丽修行", timeout=60, requires_body=true
+response if ${url} ~= /^https?:\/\/api\.bevol\.com\/(?:appmain\/app\/home\/page|usercenter\/account\/info|personal\/page|appmain\/app\/home\/launch|trialbox\/shop\/app\/homePage)$/i then script("https://github.com/fmz200/wool_scripts/raw/main/Scripts/mlxx/mlxx.js") with tag="美丽修行", timeout=60, requires_body=true
 #爱奇艺
 response if ${url} ~= /^https?:\/\/[\d\.]+\/3f1\/cards\.iqiyi\.com\/(views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺首页信息流广告", timeout=60, requires_body=true
 response if ${url} ~= /^https?:\/\/access\.if\.iqiyi\.com\/3f1\/cards\.iqiyi\.com\/(views_category\/3\.0\/category_home|views_home\/3\.0\/qy_home|waterfall\/3\.0\/feed)\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺首页信息流广告", timeout=60, requires_body=true
