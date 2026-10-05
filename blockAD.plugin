@@ -74,7 +74,8 @@ response if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo\
 response if ${url} ~= /^https?:\/\/img\.meituan\.net\/(?>dpmobile|goodsawardpic)\//i then script("https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js") with enable=${davsdmpk_enable}, tag="大众点评", timeout=60, requires_body=true
 response if ${url} ~= /^https?:\/\/ddplus\.meituan\.net\/v\d\/mss_\w+\/picassovc/i then script("https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/dianping.js") with enable=${davsdmpk_enable}, tag="大众点评", timeout=60, requires_body=true
 #途家
-response if ${url} ~= /^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb/i then script("https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/tujia_remove_ads.js") with tag="途家", timeout=60, requires_body=true
+response if ${url} ~= /^https:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising(?:\?.*)?$/ then response.json.jq(".content.startPictureAdvertising.bannerModule.banners = []")
+response if ${url} ~= /^https:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb\/v2\/?(?:\?.*)?$/ && ${response.status} == 200 then response.json.jq(".content.topBannerVO = [] | .content.otherConfig.floatingBall.bannerModule.banners = []")
 #美丽修行
 response if ${url} ~= /^https:\/\/api\.bevol\.com\/(?:appmain\/app\/home\/page|usercenter\/account\/info|personal\/page|appmain\/app\/home\/launch|trialbox\/shop\/app\/homePage)$/i then script("https://github.com/fmz200/wool_scripts/raw/main/Scripts/mlxx/mlxx.js") with tag="美丽修行", timeout=60, requires_body=true
 #爱奇艺
