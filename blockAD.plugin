@@ -46,8 +46,8 @@ request if ${url} ~= /^https?:\/\/oss\.umetrip\.com\/fs\/advert\/polite/i then r
 request if ${url} ~= /^https?:\/\/(discardrp|startup)\.umetrip\.com\/gateway\/api\/umetrip\/native/i then reject(404)
 request if ${url} ~= /^https?:\/\/(?:114\.115\.217\.129|home\.umetrip\.com)\/gateway\/api\/umetrip\/native$/ && ${request.header['rpid']} ~= /1000002|1000019/ then reject(404)
 #途家
-response if ${url} ~= /^https:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb\/v2\/?(?:\?.*)?$/ && ${response.status} == 200 then response.json.jq(".content.topBannerVO = [] | .content.otherConfig.floatingBall.bannerModule.banners = []")
-request if ${url} ~= /^https:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising(?:\?.*)?$/ then reject(404)
+response if ${url} ~= /^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb\/v2\/?(?:\?.*)?$/ && ${response.status} == 200 then response.json.jq(".content.topBannerVO = [] | .content.otherConfig.floatingBall.bannerModule.banners = []")
+request if ${url} ~= /^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getStartPictureAdvertising(?:\?.*)?$/ then reject(404)
 #微信我的医保
 response if ${url} ~= /^https?:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRulePlayV2(?:\?.*)?$/ then response.json.jq(".advs = []")
 #东方财富
