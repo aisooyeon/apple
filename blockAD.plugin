@@ -41,7 +41,6 @@ request if ${url} ~= /^https?:\/\/m\.360buyimg\.com\/mobilecms\/s1125x2001_jfs/i
 request if ${url} ~= /^https?:\/\/api\.m\.jd\.com\/api\?functionId=union_exhibition_bff$/i then reject(404)
 response if ${url} ~= /^https:\/\/api\.m\.jd\.com\/api\?functionId=jdread_api_channel_cid(&|$)/ then response.json.jq("if (.data.modules | type) == \"array\" then .data.modules |= map(select(.title != \"我的底栏\")) else . end")
 request if ${url} ~= /^https:\/\/jdread-api\.jd\.com\/jdread\/api\/channel\/module\/openscreen(?:\?|$)/ then reject_dict(200)
-
 #美团
 request if ${url} ~= /^https?:\/\/(img|s3plus)\.meituan\.net\/(adunion|bizad)\//i then reject(404)
 request if ${url} ~= /^https?:\/\/img\.meituan\.net\/wmbanner/i then reject(404)
