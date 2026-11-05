@@ -33,6 +33,7 @@ response if ${url} ~= /^https?:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRu
 #东方财富
 request if ${url} ~= /^https?:\/\/[a-z]+\.eastmoney\.com\/infoService\//i then reject(404)
 request if ${url} ~= /^https?:\/\/emdcadvise\.eastmoney\.com\/infoAdviseService\//i then reject(404)
+http-response ^https:\/\/newsinfo\.eastmoney\.com\/kuaixun\/v2\/api\/content\/getnews(?:\?|$) script-path=https://raw.githubusercontent.com/aisooyeon/apple/refs/heads/main/eastmoney-clean.js, requires-body=true, timeout=10, tag=东方财富新闻去广告
 #京东
 request if ${url} ~= /^https?:\/\/img10\.360buyimg\.com\/(deliveryadmin|mcmktresadmin)\/jfs\/t1/i then reject(404)
 request if ${url} ~= /^https?:\/\/img11\.360buyimg\.com\/dl\/jfs\/t1/i then reject(404)
