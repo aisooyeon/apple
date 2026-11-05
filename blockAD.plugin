@@ -2,7 +2,7 @@
 #!desc=blockAD
 
 [Rule]
-
+DOMAIN,ad.12306.cn,DIRECT
 [Rewrite]
 #同程
 request if ${url} ~= /^https?:\/\/wx\.17u\.cn\/flightedward\/jointHoliday\/appIndex\/getstartupservices/i then reject(404)
