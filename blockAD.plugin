@@ -50,10 +50,13 @@ request if ${url} ~= /^https?:\/\/img\.meituan\.net\/\w+\/bizad\/\w+\.(jpg|png)/
 request if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex/i then reject(404)
 response if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo\/getStartupMantleFlatingFloor\.do(?:\?.*)?$/ then response.json.jq("(.data[]? | select(.floorId == \"qdp\") | .startupDto) = [] | (.data[]? | select(.floorId == \"JX001\") | .activities) = []")
 [Script]
+#12306
+request if ${url} ~= /^https:\/\/mobile\.12306\.cn\/otsmobile\/app\/mgs\/mgw\.htm(?:\?|$)/i then script("https://raw.githubusercontent.com/aisooyeon/apple/main/Script/12306-combined.js") with tag="12306首页去推广"
+request if ${url} ~= /^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList(?:\?|$)/i then script("https://raw.githubusercontent.com/aisooyeon/apple/main/Script/12306-combined.js") with tag="12306广告过滤", requires_body=true
 #东方财富
-response if ${url} ~= /^https:\/\/newsinfo\.eastmoney\.com\/kuaixun\/v2\/api\/content\/getnews(?:\?|$)/ then script("https://raw.githubusercontent.com/aisooyeon/apple/main/eastmoney-clean.js") with requires_body=true, timeout=10, tag="东方财富去广告"
+response if ${url} ~= /^https:\/\/newsinfo\.eastmoney\.com\/kuaixun\/v2\/api\/content\/getnews(?:\?|$)/ then script("https://raw.githubusercontent.com/aisooyeon/apple/main/Script/eastmoney-clean.js") with requires_body=true, timeout=10, tag="东方财富去广告"
 #途家
-response if ${url} ~= /^https:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb\/v2\/?(?:\?.*)?$/ && ${response.status} == 200 then script("https://raw.githubusercontent.com/aisooyeon/apple/main/tujia_portal.js") with requires_body=true, timeout=10, tag="途家"
+response if ${url} ~= /^https:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb\/v2\/?(?:\?.*)?$/ && ${response.status} == 200 then script("https://raw.githubusercontent.com/aisooyeon/apple/main/Script/tujia-portal.js") with requires_body=true, timeout=10, tag="途家"
 #美丽修行
 response if ${url} ~= /^https?:\/\/api\.bevol\.com\/(?:appmain\/app\/home\/page|usercenter\/account\/info|personal\/page|appmain\/app\/home\/launch|trialbox\/shop\/app\/homePage)$/i then script("https://github.com/fmz200/wool_scripts/raw/main/Scripts/mlxx/mlxx.js") with tag="美丽修行", timeout=60, requires_body=true
 #爱奇艺
@@ -80,4 +83,4 @@ response if ${url} ~= /^https?:\/\/search\.video\.iqiyi\.com\/q\?/i then script(
 # 开屏广告,播放广告
 response if ${url} ~= /^https?:\/\/(kjp|t7z)\.cupid\.iqiyi\.com\/mixer\?/i then script("https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/cnftp.js") with enable=${aiqiyi_enable}, tag="爱奇艺开屏广告", timeout=60, requires_body=true
 [MITM]
-hostname = wx.17u.cn, tcmobileapi.17usoft.com, m5.amap.com, optimus-ads.amap.com, amap-aos-info-nogw.amap.com, act.vip.iqiyi.com, iface2.iqiyi.com, oss.umetrip.com, discardrp.umetrip.com, startup.umetrip.com, home.umetrip.com, 114.115.217.129, client.tujia.com, card.wecity.qq.com, *.eastmoney.com, img10.360buyimg.com, img11.360buyimg.com, m.360buyimg.com, api.m.jd.com, jdread-api.jd.com, img.meituan.net, s3plus.meituan.net, elife.icbc.com.cn, api.bevol.com, access.if.iqiyi.com, cards.iqiyi.com, comment-card.iqiyi.com, search.video.iqiyi.com, kjp.cupid.iqiyi.com, t7z.cupid.iqiyi.com, 103.37.155.60
+hostname = mobile.12306.cn, ad.12306.cn, wx.17u.cn, tcmobileapi.17usoft.com, m5.amap.com, optimus-ads.amap.com, amap-aos-info-nogw.amap.com, act.vip.iqiyi.com, iface2.iqiyi.com, oss.umetrip.com, discardrp.umetrip.com, startup.umetrip.com, home.umetrip.com, 114.115.217.129, client.tujia.com, card.wecity.qq.com, *.eastmoney.com, img10.360buyimg.com, img11.360buyimg.com, m.360buyimg.com, api.m.jd.com, jdread-api.jd.com, img.meituan.net, s3plus.meituan.net, elife.icbc.com.cn, api.bevol.com, access.if.iqiyi.com, cards.iqiyi.com, comment-card.iqiyi.com, search.video.iqiyi.com, kjp.cupid.iqiyi.com, t7z.cupid.iqiyi.com, 103.37.155.60
