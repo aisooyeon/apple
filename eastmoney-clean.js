@@ -1,43 +1,64 @@
+// 按广告模块标记和推广地址识别，不依赖图片文件名。
+function isAdImage(image) {
+  if (!image || typeof image !== "object") return false;
+
+  if (
+    /(?:^|\s)em_handle_adv_close(?:\s|$)/i.test(image.class || "")
+  ) {
+    return true;
+  }
+
+  var adURL = /^(?:https?:)?\/\/acttg\.eastmoney\.com(?:[/:?#]|$)/i;
+
+  if (adURL.test(image.Link || "")) return true;
+
+  var outlink = image.outlink;
+
+  return !!(
+    outlink &&
+    typeof outlink === "object" &&
+    Object.keys(outlink).some(function (key) {
+      return (
+        typeof outlink[key] === "string" &&
+        adURL.test(outlink[key])
+      );
+    })
+  );
+}
+
 if (Array.isArray(news.images)) {
   news.images = news.images.map(function (image) {
-    if (!image || typeof image !== "object") return image;
+    if (!isAdImage(image)) return image;
 
-    // 精确识别已确认的广告图片。
-    var knownAd =
-      /(?:^|\/)D24963336202551900518_w690h180(?:\.[a-z0-9]+)?(?:[?#]|$)/i.test(
-        image.src || ""
-      );
-
-    // 同时保留原有广告 class、推广链接识别。
-    if (!knownAd && !isAdImage(image)) return image;
+    var label = image.label;
 
     if (
-      typeof image.label === "string" &&
-      /^<!--IMG#\d+-->$/.test(image.label)
+      typeof label === "string" &&
+      /^<!--IMG#\d+-->$/.test(label)
     ) {
-      var label = image.label;
-      var escaped = label.replace(
-        /[.*+?^$\{\}()|[\]\\]/g,
-        "\\$&"
-      );
+      var escaped = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-      // 删除只包含该广告图片及其链接的完整段落。
-      var paragraph = new RegExp(
-        "<p\\b[^>]*>\\s*(?:<a\\b[^>]*>\\s*)?" +
+      // 删除整个广告模块：外层段落、点击链接、图片占位。
+      var modulePattern = new RegExp(
+        "<p\\b[^>]*>\\s*" +
+          "(?:<a\\b[^>]*>\\s*" +
           escaped +
-          "\\s*(?:<\\/a\\s*>\\s*)?<\\/p\\s*>",
+          "\\s*</a\\s*>|" +
+          escaped +
+          ")\\s*</p\\s*>",
         "gi"
       );
 
-      news.body = news.body.replace(paragraph, "");
+      news.body = news.body.replace(modulePattern, "");
 
-      // 若图片混在正文段落里，只移除广告占位。
+      // 若广告图片出现在混合正文中，仅清理其占位，
+      // 避免连带删除正文文字。
       news.body = news.body.split(label).join("");
     }
 
-    // 清除广告地址和跳转信息，保留数组位置。
+    // 移除广告素材及跳转数据，保留位置以免正常配图错位。
     return {
-      label: image.label || "",
+      label: label || "",
       src: ""
     };
   });
