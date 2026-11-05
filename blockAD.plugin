@@ -33,7 +33,6 @@ response if ${url} ~= /^https?:\/\/card\.wecity\.qq\.com\/trpcapi\/AdvCfg\/AdvRu
 #东方财富
 request if ${url} ~= /^https?:\/\/[a-z]+\.eastmoney\.com\/infoService\//i then reject(404)
 request if ${url} ~= /^https?:\/\/emdcadvise\.eastmoney\.com\/infoAdviseService\//i then reject(404)
-http-response ^https:\/\/newsinfo\.eastmoney\.com\/kuaixun\/v2\/api\/content\/getnews(?:\?|$) script-path=https://raw.githubusercontent.com/aisooyeon/apple/main/eastmoney-clean.js, requires-body=true, timeout=10, tag=东方财富新闻去广告
 #京东
 request if ${url} ~= /^https?:\/\/img10\.360buyimg\.com\/(deliveryadmin|mcmktresadmin)\/jfs\/t1/i then reject(404)
 request if ${url} ~= /^https?:\/\/img11\.360buyimg\.com\/dl\/jfs\/t1/i then reject(404)
@@ -52,7 +51,7 @@ request if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/lifeIndex/i
 response if ${url} ~= /^https?:\/\/elife\.icbc\.com\.cn\/OFSTNEWBASE\/floorinfo\/getStartupMantleFlatingFloor\.do(?:\?.*)?$/ then response.json.jq("(.data[]? | select(.floorId == \"qdp\") | .startupDto) = [] | (.data[]? | select(.floorId == \"JX001\") | .activities) = []")
 [Script]
 #东方财富
-http-response ^https:\/\/newsinfo\.eastmoney\.com\/kuaixun\/v2\/api\/content\/getnews(?:\?|$) script-path=https://raw.githubusercontent.com/aisooyeon/apple/main/eastmoney-clean.js, requires-body=true, timeout=10, tag=东方财富去广告
+response if ${url} ~= /^https:\/\/newsinfo\.eastmoney\.com\/kuaixun\/v2\/api\/content\/getnews(?:\?|$)/ then script("https://raw.githubusercontent.com/aisooyeon/apple/main/eastmoney-clean.js") with requires_body=true, timeout=10, tag="东方财富去广告"
 #途家
 response if ${url} ~= /^https:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb\/v2\/?(?:\?.*)?$/ && ${response.status} == 200 then script("https://raw.githubusercontent.com/aisooyeon/apple/main/tujia_portal.js") with requires_body=true, timeout=10, tag="途家"
 #美丽修行
